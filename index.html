@@ -334,8 +334,8 @@ footer{background:var(--verde-fundo); color:var(--hero-muted); font-size:14px}
         </article>
         <article class="area">
           <h3><svg aria-hidden="true"><use href="#crista"/></svg>Direito ambiental</h3>
-          <p>Licenciamento ambiental, defesa em autos de infração e embargos, CAR e Reserva Legal, termos de ajustamento de conduta e responsabilidade civil por dano ambiental.</p>
-          <div class="lei">Lei nº 6.938/1981 · Lei nº 9.605/1998</div>
+          <p>Licenciamento ambiental, outorga de poços e de uso de água, autorização para corte de vegetação, defesa em autos de infração e embargos, CAR e Reserva Legal, termos de ajustamento de conduta e responsabilidade civil por dano ambiental.</p>
+          <div class="lei">Lei nº 6.938/1981 · Lei nº 9.433/1997 · Lei nº 9.605/1998 · Lei nº 11.428/2006</div>
         </article>
         <article class="area">
           <h3><svg aria-hidden="true"><use href="#crista"/></svg>Direito civil</h3>
@@ -688,8 +688,27 @@ footer{background:var(--verde-fundo); color:var(--hero-muted); font-size:14px}
         {id:'area', label:'Área do imóvel', type:'text', ph:'Ex.: 30 hectares', req:true},
         MUNICIPIO
       ]},
-      {id:'supressao', n:'Corte de vegetação ou uso de água', d:'Autorização florestal e outorga', q:[
-        {id:'tipo', label:'O que precisa?', type:'chips', opts:['Cortar árvores isoladas','Suprimir mata nativa','Colher pinhão ou bracatinga','Poço ou captação de água','Barragem ou lançamento de efluente'], req:true},
+      {id:'poco', n:'Poço e outorga de água subterrânea', d:'Perfurar, regularizar ou renovar a outorga', q:[
+        {id:'situacao', label:'Em que ponto está?', type:'select', opts:['Quero perfurar um poço','Já tenho poço e não tenho outorga','Tenho outorga e preciso renovar ou alterar','Recebi notificação ou auto por causa do poço','Outro'], req:true},
+        {id:'aviso_perfurar', type:'aviso', when:{q:'situacao', v:['Quero perfurar um poço']}, texto:'A perfuração depende de autorização do órgão de recursos hídricos, e a extração de água depende de outorga, salvo os usos de volume insignificante definidos em regulamento (Lei nº 9.433/1997, arts. 12 e 49).'},
+        {id:'aviso_sem_outorga', type:'aviso', when:{q:'situacao', v:['Já tenho poço e não tenho outorga']}, texto:'Usar água do poço sem outorga é infração (Lei nº 9.433/1997, art. 49, I). Regularizar antes de uma fiscalização costuma ser o caminho mais seguro.'},
+        {id:'uso', label:'Para que a água é ou será usada?', type:'chips', opts:['Casa ou condomínio','Indústria ou comércio','Irrigação','Criação de animais','Outro'], req:true},
+        {id:'tipo_poco', label:'Tipo de poço', type:'chips', opts:['Tubular (artesiano ou semiartesiano)','Raso (cacimba)','Não sei']},
+        {id:'volume', label:'Volume aproximado de uso', type:'text', ph:'Ex.: 5 m³ por dia', opt:true},
+        {id:'rede', label:'O imóvel é atendido pela rede pública de água?', type:'chips', opts:SNN, req:true},
+        {id:'protocolo', label:'Número da outorga ou do protocolo', type:'text', opt:true, when:{q:'situacao', v:['Tenho outorga e preciso renovar ou alterar','Recebi notificação ou auto por causa do poço']}},
+        MUNICIPIO
+      ]},
+      {id:'corte', n:'Corte de árvores ou de vegetação nativa', d:'Autorização florestal, árvores isoladas e regularização', q:[
+        {id:'situacao', label:'Em que ponto está?', type:'chips', opts:['Ainda não cortei','Já houve corte e quero regularizar','Fui autuado'], req:true},
+        {id:'tipo', label:'O que precisa ser cortado?', type:'chips', opts:['Árvores isoladas','Mata nativa','Araucária, imbuia ou outra espécie protegida','Manejo de bracatinga'], req:true},
+        {id:'aviso_mata', type:'aviso', when:{q:'tipo', v:['Mata nativa']}, texto:'No Paraná, a supressão de mata nativa segue, em regra, a Lei da Mata Atlântica (Lei nº 11.428/2006), que só admite o corte de vegetação primária ou em estágio avançado de regeneração por utilidade pública e, em estágio médio, também por interesse social, sempre sem alternativa técnica e locacional (art. 14).'},
+        {id:'aviso_especie', type:'aviso', when:{q:'tipo', v:['Araucária, imbuia ou outra espécie protegida']}, texto:'Espécies ameaçadas de extinção, como a araucária e a imbuia, têm corte muito restrito. Vale conferir a situação antes de qualquer intervenção.'},
+        {id:'zona', label:'O imóvel é', type:'chips', opts:['Urbano','Rural'], req:true},
+        {id:'aviso_urbano', type:'aviso', when:{q:'zona', v:['Urbano']}, texto:'Em área urbana, o corte de árvores costuma depender também de autorização da prefeitura.'},
+        {id:'finalidade', label:'Para quê?', type:'chips', opts:['Construção ou ampliação','Lavoura ou pastagem','Loteamento ou condomínio','Risco de queda','Outro'], req:true},
+        {id:'quantidade', label:'Quantas árvores ou que área', type:'text', ph:'Ex.: 3 árvores ou 0,5 hectare', req:true},
+        {id:'app', label:'É perto de rio ou nascente, ou em área de preservação (APP)?', type:'chips', opts:SNN, req:true},
         MUNICIPIO
       ]},
       {id:'crime', n:'Inquérito, ação civil pública ou TAC', d:'Polícia, Ministério Público ou Justiça', q:[
